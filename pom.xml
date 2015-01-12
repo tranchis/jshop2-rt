@@ -1,0 +1,120 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.gamalocus</groupId>
+	<artifactId>jshop2rt</artifactId>
+	<name>JSHOP2-rt</name>
+	<version>1.0.2-SNAPSHOT</version>
+	<description />
+
+	<scm>
+		<connection>scm:svn:http://jshop2-rt.googlecode.com/svn/trunk/</connection>
+		<developerConnection>scm:svn:https://jshop2-rt.googlecode.com/svn/trunk/</developerConnection>
+		<url>http://code.google.com/p/jshop2-rt/</url>
+	</scm>
+
+	<distributionManagement>
+		<repository>
+			<id>gamalocus.com-dev</id>
+			<url>
+				scpexe://dev.cotwl.net/home/cotk/maven2/repository
+			</url>
+		</repository>
+		<snapshotRepository>
+			<id>gamalocus.com-snapshot-dev</id>
+			<url>
+				scpexe://dev.cotwl.net/home/cotk/maven2/snapshotRepository
+			</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<build>
+		<plugins>
+
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<configuration>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>antlr-maven-plugin</artifactId>
+				<configuration>
+					<grammars>JSHOP2.g</grammars>
+					<diagnostic>false</diagnostic>
+					<outputDirectory>src/generated/java</outputDirectory>
+				</configuration>
+				<executions>
+          			<execution>
+            			<goals>
+              				<goal>generate</goal>
+            			</goals>
+          			</execution>
+        		</executions>				
+			</plugin>
+						
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.1</version>
+				<executions>
+					<execution>
+						<id>add-source</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>src/generated/java</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>			
+			
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.4</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>antlr</groupId>
+			<artifactId>antlr</artifactId>
+			<version>20030911</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.ant</groupId>
+			<artifactId>ant</artifactId>
+			<version>1.7.0</version>
+		</dependency>
+	</dependencies>
+</project>
